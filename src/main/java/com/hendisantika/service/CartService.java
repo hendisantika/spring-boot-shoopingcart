@@ -1,12 +1,16 @@
 package com.hendisantika.service;
 
 import com.hendisantika.model.CartRecords;
+import com.hendisantika.model.Item;
+import com.hendisantika.payload.response.CartResponse;
 import com.hendisantika.repository.CartRepository;
 import com.hendisantika.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,5 +43,24 @@ public class CartService {
             hm.put("message", "Success");
         }
         return hm;
+    }
+
+    public List<CartResponse> getAllItemsInCart(int id) {
+        List<CartRecords> cart = cartRepository.getCartDetailsByCustId(id);
+        List<CartResponse> cartResponse = new ArrayList<CartResponse>();
+
+        for (CartRecords cartRes : cart) {
+            CartResponse response = new CartResponse();
+            response.setQty(cartRes.getQuantity());
+            response.setTotalPrice(cartRes.getPrice());
+            response.setId(cartRes.getId());
+            response.setItemId(cartRes.getItemId());
+
+            Item existingItem = itemRepository.findById(cartRes.getItemId()).orElse(null);
+            response.setItemName(existingItem.getName());
+
+            cartResponse.add(response);
+        }
+        return cartResponse;
     }
 }
