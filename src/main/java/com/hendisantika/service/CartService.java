@@ -63,4 +63,9 @@ public class CartService {
         }
         return cartResponse;
     }
+
+    public List<CartRecords> getItemInCartById(int custId, int id) {
+        return cartRepository.getCartDetailsByCustIdAndId(custId, id);
+    }
+
 }
