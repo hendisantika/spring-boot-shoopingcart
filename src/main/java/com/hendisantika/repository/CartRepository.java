@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -17,7 +16,6 @@ import java.util.List;
  * Date: 29/10/21
  * Time: 06.25
  */
-@Transactional
 @Repository
 public interface CartRepository extends JpaRepository<CartRecords, Integer> {
     @Query(value = "SELECT * from cart_item c WHERE c.user_id = ?1 AND c.status = '" + "P" + "'", nativeQuery = true)
@@ -25,5 +23,8 @@ public interface CartRepository extends JpaRepository<CartRecords, Integer> {
 
     @Query(value = "SELECT * from cart_item c WHERE c.user_id = ?1 AND c.item_id = ?2", nativeQuery = true)
     List<CartRecords> getCartDetailsByCustIdAndId(int custId, int id);
+
+    @Query(value = "SELECT * from cart_item c WHERE c.user_id = ?1 AND c.status = '" + "S" + "'", nativeQuery = true)
+    List<CartRecords> getPayedCartDetailsByCustId(int custId);
 
 }
