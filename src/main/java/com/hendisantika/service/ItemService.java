@@ -37,4 +37,10 @@ public class ItemService {
     public Item getItemById(int id) {
         return itemRepository.findById(id).orElse(null);
     }
+
+    public String deleteItemByID(int id) {
+        itemRepository.deleteById(id);
+        cartRepository.deleteByItemFromCart(id);
+        return "Record deleted";
+    }
 }
