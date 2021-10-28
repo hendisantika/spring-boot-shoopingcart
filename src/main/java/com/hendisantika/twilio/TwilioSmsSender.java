@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Date: 29/10/21
  * Time: 06.49
  */
-public class TwilioSmsSender {
+public class TwilioSmsSender implements SmsSender {
     private static final Logger LOGGER = LoggerFactory.getLogger(TwilioSmsSender.class);
 
     private final TwilioConfiguration twilioConfiguration;
@@ -26,6 +26,7 @@ public class TwilioSmsSender {
         this.twilioConfiguration = twilioConfiguration;
     }
 
+    @Override
     public void sendSms(SmsRequest smsRequest) {
         if (isPhoneNumberValid(smsRequest.getPhoneNumber())) {
             PhoneNumber to = new PhoneNumber(smsRequest.getPhoneNumber());
