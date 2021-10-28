@@ -1,5 +1,6 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.Item;
 import com.hendisantika.repository.CartRepository;
 import com.hendisantika.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,7 @@ public class ItemService {
     @Autowired
     private CartRepository cartRepository;
 
+    public Item addItem(Item item) {
+        return itemRepository.save(item);
+    }
 }
