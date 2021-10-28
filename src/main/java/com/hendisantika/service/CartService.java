@@ -79,4 +79,23 @@ public class CartService {
 
         return cartRepository.save(existingItem);
     }
+
+    public List<CartResponse> getAllPayedItemsInCart(int custId) {
+        List<CartRecords> cart = cartRepository.getPayedCartDetailsByCustId(custId);
+        List<CartResponse> cartResponse = new ArrayList<CartResponse>();
+
+        for (CartRecords cartRes : cart) {
+            CartResponse response = new CartResponse();
+            response.setQty(cartRes.getQuantity());
+            response.setTotalPrice(cartRes.getPrice());
+            response.setId(cartRes.getId());
+            response.setModifiedDate(cartRes.getModifiedAt());
+
+            Item existingItem = itemRepository.findById(cartRes.getItemId()).orElse(null);
+            response.setItemName(existingItem.getName());
+
+            cartResponse.add(response);
+        }
+        return cartResponse;
+    }
 }
