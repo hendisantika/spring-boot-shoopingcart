@@ -1,14 +1,19 @@
 package com.hendisantika.stripe;
 
+import com.hendisantika.payload.response.CartResponse;
 import com.hendisantika.repository.CartRepository;
 import com.hendisantika.service.ItemService;
 import com.stripe.Stripe;
+import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,5 +51,26 @@ public class StripeClient {
 
     private Customer getCustomer(String id) throws Exception {
         return Customer.retrieve(id);
+    }
+
+    public Charge chargeNewCard(String token, double amount, int userID, List<CartResponse> cartResponseList) throws Exception {
+        Map<String, Object> chargeParams = new HashMap<String, Object>();
+        chargeParams.put("amount", (int) (amount * 100));
+        chargeParams.put("currency", "USD");
+        chargeParams.put("source", token);
+        Charge charge = Charge.create(chargeParams);
+
+        Date date = new Date();
+        long time = date.getTime();
+        Timestamp curentTime = new Timestamp(time);
+
+        cartRepository.updateCartPaymentSuccess(userID, curentTime);
+
+        //Reduce stock when customer paid
+        for (CartResponse cartResponse : cartResponseList) {
+            itemService.updateStockCustomer(cartResponse.getQty(), cartResponse.getItemId());
+        }
+
+        return charge;
     }
 }
