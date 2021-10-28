@@ -72,4 +72,11 @@ public class CartService {
         cartRepository.deleteById(id);
         return "Item deleted";
     }
+
+    public CartRecords updateItemById(CartRecords cart) {
+        CartRecords existingItem = cartRepository.findById(cart.getId()).orElse(null);
+        existingItem.setQuantity(cart.getQuantity());
+
+        return cartRepository.save(existingItem);
+    }
 }
