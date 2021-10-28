@@ -69,4 +69,7 @@ public class ItemService {
         return "Stock updated sucessfully";
     }
 
+    public List<Item> getAllItemsBySellarID(int id) {
+        return itemRepository.getAllItemsBySellarID(id);
+    }
 }
