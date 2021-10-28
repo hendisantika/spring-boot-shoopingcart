@@ -1,11 +1,14 @@
 package com.hendisantika.service;
 
 import com.hendisantika.model.Item;
+import com.hendisantika.payload.response.ItemBrandDetail;
 import com.hendisantika.repository.CartRepository;
 import com.hendisantika.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -71,5 +74,27 @@ public class ItemService {
 
     public List<Item> getAllItemsBySellarID(int id) {
         return itemRepository.getAllItemsBySellarID(id);
+    }
+
+    public List<ItemBrandDetail> getAllItemsBrandsBySellarID(int sellarId) {
+
+        List<Item> items = itemRepository.getAllItemsBySellarID(sellarId);
+        HashSet<String> setBrands = new HashSet();
+        List<ItemBrandDetail> itemBrandDetailList = new ArrayList<>();
+
+        for (Item item : items) {
+            setBrands.add(item.getBrand());
+        }
+
+        for (String itemBrand : setBrands) {
+            ItemBrandDetail itemBrandDetail = new ItemBrandDetail();
+            int qty = itemRepository.getNoOfItembySellerAndBrand(sellarId, itemBrand);
+            itemBrandDetail.setBrand(itemBrand);
+            itemBrandDetail.setQuantity(qty);
+            itemBrandDetailList.add(itemBrandDetail);
+        }
+
+        return itemBrandDetailList;
+
     }
 }
