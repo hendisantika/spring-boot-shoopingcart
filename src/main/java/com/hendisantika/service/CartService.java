@@ -1,0 +1,25 @@
+package com.hendisantika.service;
+
+import com.hendisantika.repository.CartRepository;
+import com.hendisantika.repository.ItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : spring-boot-shoopingcart
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 29/10/21
+ * Time: 06.37
+ */
+@Service
+public class CartService {
+
+    @Autowired
+    CartRepository cartRepository;
+
+    @Autowired
+    ItemRepository itemRepository;
+}
