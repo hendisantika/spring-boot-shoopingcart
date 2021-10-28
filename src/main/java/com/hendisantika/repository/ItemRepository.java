@@ -33,4 +33,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     @Query(value = "SELECT * from items_tbl it WHERE  it.sellarid = ?1 ", nativeQuery = true)
     List<Item> getAllItemsBySellarID(int sellarid);
 
+    @Query(value = "SELECT SUM(stock) from items_tbl it WHERE it.sellarid = ?1 AND it.brand = ?2", nativeQuery = true)
+    Integer getNoOfItembySellerAndBrand(int sellarid, String brand);
+
 }
