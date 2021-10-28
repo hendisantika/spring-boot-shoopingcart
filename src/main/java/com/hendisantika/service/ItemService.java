@@ -33,4 +33,8 @@ public class ItemService {
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
+
+    public Item getItemById(int id) {
+        return itemRepository.findById(id).orElse(null);
+    }
 }
