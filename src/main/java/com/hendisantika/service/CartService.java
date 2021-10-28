@@ -68,4 +68,8 @@ public class CartService {
         return cartRepository.getCartDetailsByCustIdAndId(custId, id);
     }
 
+    public String deleteItemByID(int id) {
+        cartRepository.deleteById(id);
+        return "Item deleted";
+    }
 }
