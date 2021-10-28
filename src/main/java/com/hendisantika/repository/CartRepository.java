@@ -30,10 +30,13 @@ public interface CartRepository extends JpaRepository<CartRecords, Integer> {
     @Query(value = "SELECT * from cart_item c WHERE c.user_id = ?1 AND c.status = '" + "S" + "'", nativeQuery = true)
     List<CartRecords> getPayedCartDetailsByCustId(int custId);
 
-
     @Transactional
     @Query("UPDATE CartRecords SET status = '" + "S" + "' WHERE user_id = ?1")
     @Modifying
     void updateCartPaymentSuccess(int custId, Date curentTime);
 
+    @Transactional
+    @Modifying
+    @Query("delete from CartRecords c where c.itemId = ?1")
+    void deleteByItemFromCart(int itemID);
 }
