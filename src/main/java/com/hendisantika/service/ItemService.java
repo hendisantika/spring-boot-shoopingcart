@@ -63,4 +63,10 @@ public class ItemService {
         itemRepository.updateStockCustomer(quantity, id);
     }
 
+    //increase stock when seller added stock
+    public String updateStockSellar(int quantity, int id) {
+        itemRepository.updateStockSellar(quantity, id);
+        return "Stock updated sucessfully";
+    }
+
 }
