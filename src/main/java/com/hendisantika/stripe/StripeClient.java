@@ -44,4 +44,7 @@ public class StripeClient {
         return Customer.create(customerParams);
     }
 
+    private Customer getCustomer(String id) throws Exception {
+        return Customer.retrieve(id);
+    }
 }
