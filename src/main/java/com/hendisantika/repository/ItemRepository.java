@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-shoopingcart
@@ -27,4 +29,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     @Query("UPDATE Item SET stock = stock + ?1 WHERE id = ?2")
     @Modifying
     void updateStockSellar(int quantity, int id);
+
+    @Query(value = "SELECT * from items_tbl it WHERE  it.sellarid = ?1 ", nativeQuery = true)
+    List<Item> getAllItemsBySellarID(int sellarid);
+
 }
