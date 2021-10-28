@@ -1,9 +1,12 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.CartRecords;
 import com.hendisantika.repository.CartRepository;
 import com.hendisantika.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,4 +25,19 @@ public class CartService {
 
     @Autowired
     ItemRepository itemRepository;
+
+    public HashMap<String, String> addToCart(CartRecords cart) {
+
+        HashMap<String, String> hm = new HashMap<>();
+
+        double totPrice = (cart.getPrice() * cart.getQuantity());
+        cart.setStatus("P");
+        cart.setPrice(totPrice);
+        CartRecords add = cartRepository.save(cart);
+
+        if (add != null) {
+            hm.put("message", "Success");
+        }
+        return hm;
+    }
 }
