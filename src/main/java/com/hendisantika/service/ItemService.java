@@ -6,6 +6,8 @@ import com.hendisantika.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-shoopingcart
@@ -26,5 +28,9 @@ public class ItemService {
 
     public Item addItem(Item item) {
         return itemRepository.save(item);
+    }
+
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
     }
 }
