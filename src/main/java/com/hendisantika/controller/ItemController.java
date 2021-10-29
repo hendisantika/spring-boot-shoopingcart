@@ -57,4 +57,9 @@ public class ItemController {
     public Item updateItem(@RequestBody Item item) {
         return itemService.updateItemById(item);
     }
+
+    @PutMapping("customer/{qty}/{id}")
+    public void updateStockCustomer(@PathVariable int qty, @PathVariable int id) {
+        itemService.updateStockCustomer(qty, id);
+    }
 }
