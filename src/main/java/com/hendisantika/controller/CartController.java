@@ -58,4 +58,9 @@ public class CartController {
         return cartService.updateItemById(cart);
     }
 
+    @GetMapping("/{custId}/payedCarts")
+    @PreAuthorize("hasRole('USER')")
+    public List<CartResponse> getAllPayedItemsInCart(@PathVariable int custId) {
+        return cartService.getAllPayedItemsInCart(custId);
+    }
 }
