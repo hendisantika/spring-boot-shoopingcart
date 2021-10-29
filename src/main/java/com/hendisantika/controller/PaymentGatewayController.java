@@ -1,11 +1,18 @@
 package com.hendisantika.controller;
 
 import com.hendisantika.mobilepayment.MobilePaymentService;
+import com.hendisantika.payload.response.CartResponse;
 import com.hendisantika.stripe.StripeClient;
+import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,4 +36,13 @@ public class PaymentGatewayController {
     PaymentGatewayController(StripeClient stripeClient) {
         this.stripeClient = stripeClient;
     }
+
+    @PostMapping("/charge")
+    public Charge chargeCard(@RequestHeader(value = "token") String token,
+                             @RequestHeader(value = "amount") Double amount,
+                             @RequestHeader(value = "userid") Integer userid,
+                             @RequestBody List<CartResponse> cartResponseList) throws Exception {
+        return this.stripeClient.chargeNewCard(token, amount, userid, cartResponseList);
+    }
+
 }
