@@ -59,4 +59,10 @@ public class User {
     @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Item> items;
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
 }
