@@ -62,4 +62,9 @@ public class ItemController {
     public void updateStockCustomer(@PathVariable int qty, @PathVariable int id) {
         itemService.updateStockCustomer(qty, id);
     }
+
+    @PutMapping("sellar/{qty}/{id}")
+    public String updateStockSellar(@PathVariable int qty, @PathVariable int id) {
+        return itemService.updateStockSellar(qty, id);
+    }
 }
