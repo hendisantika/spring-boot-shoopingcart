@@ -6,6 +6,7 @@ import com.hendisantika.stripe.StripeClient;
 import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -45,4 +46,8 @@ public class PaymentGatewayController {
         return this.stripeClient.chargeNewCard(token, amount, userid, cartResponseList);
     }
 
+    @PostMapping("/chargemobilepayment/{userid}")
+    public String chargeMobilePayment(@PathVariable Integer userid, @RequestBody List<CartResponse> cartResponseList) throws Exception {
+        return mobilePaymentService.chargeMobilePayment(userid, cartResponseList);
+    }
 }
