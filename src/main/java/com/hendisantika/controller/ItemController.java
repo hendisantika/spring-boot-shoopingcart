@@ -1,6 +1,7 @@
 package com.hendisantika.controller;
 
 import com.hendisantika.model.Item;
+import com.hendisantika.payload.response.ItemBrandDetail;
 import com.hendisantika.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -66,5 +67,10 @@ public class ItemController {
     @PutMapping("sellar/{qty}/{id}")
     public String updateStockSellar(@PathVariable int qty, @PathVariable int id) {
         return itemService.updateStockSellar(qty, id);
+    }
+
+    @GetMapping("/itembrands/{sellerid}")
+    public List<ItemBrandDetail> getAllItemsBrandsBySellarID(@PathVariable int sellerid) {
+        return itemService.getAllItemsBrandsBySellarID(sellerid);
     }
 }
