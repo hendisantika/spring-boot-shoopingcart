@@ -5,12 +5,15 @@ import com.hendisantika.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,5 +37,11 @@ public class CartController {
     public HashMap<String, String> addToCart(@RequestBody CartRecords cart) throws Exception {
         HashMap<String, String> response = cartService.addToCart(cart);
         return response;
+    }
+
+    @GetMapping("/{custId}")
+    @PreAuthorize("hasRole('USER')")
+    public List<CartResponse> getAllItemsInCart(@PathVariable int custId) {
+        return cartService.getAllItemsInCart(custId);
     }
 }
