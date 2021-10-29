@@ -47,4 +47,8 @@ public class ItemController {
         return itemService.getItemById(id);
     }
 
+    @GetMapping("/useritems/{id}")
+    public List<Item> getItemsBySellerId(@PathVariable int id) {
+        return itemService.getAllItemsBySellarID(id);
+    }
 }
