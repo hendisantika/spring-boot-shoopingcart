@@ -1,6 +1,7 @@
 package com.hendisantika.controller;
 
 import com.hendisantika.model.CartRecords;
+import com.hendisantika.payload.response.CartResponse;
 import com.hendisantika.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,5 +44,11 @@ public class CartController {
     @PreAuthorize("hasRole('USER')")
     public List<CartResponse> getAllItemsInCart(@PathVariable int custId) {
         return cartService.getAllItemsInCart(custId);
+    }
+
+    @GetMapping("/{custId}/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public List<CartRecords> getItemInCartById(@PathVariable int custId, @PathVariable int itemId) {
+        return cartService.getItemInCartById(custId, itemId);
     }
 }
