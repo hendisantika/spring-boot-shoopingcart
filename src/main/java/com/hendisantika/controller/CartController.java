@@ -6,6 +6,7 @@ import com.hendisantika.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,5 +51,11 @@ public class CartController {
     @PreAuthorize("hasRole('USER')")
     public List<CartRecords> getItemInCartById(@PathVariable int custId, @PathVariable int itemId) {
         return cartService.getItemInCartById(custId, itemId);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public String deleteItemInCartById(@PathVariable int id) {
+        return cartService.deleteItemByID(id);
     }
 }
