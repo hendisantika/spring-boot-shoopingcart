@@ -4,6 +4,7 @@ import com.twilio.Twilio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -30,5 +31,10 @@ public class TwilioInitializer {
                 twilioConfiguration.getAuthToken()
         );
         LOGGER.info("Twilio initialized ... with account sid {} ", twilioConfiguration.getAccountSid());
+    }
+
+    @Bean("twilio")
+    public TwilioSmsSender twilioSmsSender() {
+        return new TwilioSmsSender(twilioConfiguration);
     }
 }

@@ -28,16 +28,16 @@ public class TwilioSmsSender implements SmsSender {
 
     @Override
     public void sendSms(SmsRequest smsRequest) {
-        if (isPhoneNumberValid(smsRequest.getPhoneNumber())) {
-            PhoneNumber to = new PhoneNumber(smsRequest.getPhoneNumber());
+        if (isPhoneNumberValid(smsRequest.phoneNumber())) {
+            PhoneNumber to = new PhoneNumber(smsRequest.phoneNumber());
             PhoneNumber from = new PhoneNumber(twilioConfiguration.getTrialNumber());
-            String message = smsRequest.getMessage();
+            String message = smsRequest.message();
             MessageCreator creator = Message.creator(to, from, message);
             creator.create();
             LOGGER.info("Send sms {}", smsRequest);
         } else {
             throw new IllegalArgumentException(
-                    "Phone number [" + smsRequest.getPhoneNumber() + "] is not a valid number"
+                    "Phone number [" + smsRequest.phoneNumber() + "] is not a valid number"
             );
         }
 

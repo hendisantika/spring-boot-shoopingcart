@@ -1,7 +1,6 @@
 package com.hendisantika.twilio;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +12,7 @@ import lombok.AllArgsConstructor;
  * Time: 06.47
  *
  * @param phoneNumber destination
+ * @param message     message content
  */
-@AllArgsConstructor
 public record SmsRequest(@NotBlank String phoneNumber, @NotBlank String message) {
 }
