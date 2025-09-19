@@ -1,9 +1,7 @@
 package com.hendisantika.twilio;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,14 +11,9 @@ import javax.validation.constraints.NotBlank;
  * Telegram : @hendisantika34
  * Date: 29/10/21
  * Time: 06.47
+ *
+ * @param phoneNumber destination
  */
-@Data
 @AllArgsConstructor
-public class SmsRequest {
-    @NotBlank
-    private final String phoneNumber; // destination
-
-    @NotBlank
-    private final String message;
-
+public record SmsRequest(@NotBlank String phoneNumber, @NotBlank String message) {
 }

@@ -1,8 +1,7 @@
 package com.hendisantika.payload.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 /**
  * Created by IntelliJ IDEA.
